@@ -11,9 +11,9 @@ app.use(express.json());
 app.post("/compile", (req, res) => {
   try {
     const code = req.body.code;
-    console.log(code);
+    //console.log(code);
     let outputs = compiler(code);
-    console.log(outputs);
+    //console.log(outputs);
     res.json(outputs);
     // res.send(code);
   } catch (error) {
@@ -22,3 +22,4 @@ app.post("/compile", (req, res) => {
 });
 
 app.listen(5000, console.log(`listenning on port ${port}`));
+
