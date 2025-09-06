@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ParsScript</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      h1 {
+        text-align: center;
+      }
+      .main {
+        width: 100%;
+        min-height: 90vh;
+      }
+      form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+      #input-output {
+        width: 100%;
+        height: 70vh;
+        display: flex;
+        flex-direction: row-reverse;
+        border: 1px solid red;
+      }
+      #mobile-run {
+        display: none;
+      }
+      #input {
+        width: 50%;
+      }
+      #code {
+        width: 100%;
+        height: 95%;
+        border: none;
+      }
+      #output-board {
+        width: 50%;
+        background-color: blanchedalmond;
+        direction: rtl;
+      }
+      #output {
+        height: 95%;
+        padding: 5px;
+      }
+      #run {
+        width: 30%;
+        height: 30px;
+      }
+      .label {
+        width: 100%;
+        text-align: center;
+        border-bottom: 2px solid black;
+        height: 5%;
+        background-color: azure;
+      }
+
+      @media (max-width: 560px) {
+        #input-output {
+          flex-direction: column;
+          align-items: center;
+          height: 150vh;
+        }
+        #input {
+          height: 90%;
+          width: 100%;
+        }
+        #output-board {
+          height: 90%;
+          width: 100%;
+        }
+        #run {
+          display: none;
+        }
+        #mobile-run {
+          display: block;
+          height: 9%;
+          width: 30%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ParsScript</h1>
+    <section class="main">
+      <form action="/compile" method="post">
+        <div id="input-output">
+          <div id="input">
+            <div class="label">ورودی</div>
+            <textarea name="code" id="code" style="direction: rtl"></textarea>
+          </div>
+          <button id="mobile-run" type="button">اجرا</button>
+          <div id="output-board">
+            <div class="label">خروجی</div>
+            <div id="output"></div>
+          </div>
+        </div>
+        <button id="run" type="button">اجرا</button>
+        <script>
+          const runBtn = document.getElementById("run");
+          const mobileRunBtn = document.getElementById("mobile-run");
+          const codeInput = document.getElementById("code");
+          const output = document.getElementById("output");
+
+          async function logOutput(e) {
+            output.innerText = "";
+            try {
+              e.preventDefault();
+              let data = await fetch("/compile", {
+                headers: {
+                  "content-type": "application/json",
+                },
+                method: "post",
+                body: JSON.stringify({ code: codeInput.value }),
+              });
+              let outputs = await data.json();
+              outputs.forEach((el) => {
+                let newLine = "";
+                el.forEach((e, i) => {
+                  newLine += e;
+                  // output.innerText += e;
+                  if (i != el.length - 1) {
+                    newLine += " ";
+                  }
+                });
+                output.innerText += newLine;
+                output.innerText += "\n";
+              });
+            } catch (error) {
+              output.innerText = error;
+            }
+          }
+
+          runBtn.addEventListener("click", logOutput);
+          mobileRunBtn.addEventListener("click", logOutput);
+        </script>
+      </form>
+    </section>
+  </body>
+</html>
