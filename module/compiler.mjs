@@ -5,7 +5,9 @@ import isAlfaNumeric from "./isAlfaNumeric.mjs";
 
 const compiler = (code) => {
   let outputs = [];
-  let outputAdderCode = `function addOutput(...args) {outputs.push(args)}`;
+  function addOutput(...args) {
+    outputs.push(args);
+  }
   let isInString = "";
   let compiledCode = "";
   let lines = code.split("\n");
@@ -82,8 +84,7 @@ const compiler = (code) => {
     newLine += "\n";
     compiledCode += newLine;
   });
-  let newCode =
-    outputAdderCode + compiledCode.replaceAll("console.log(", "addOutput(");
+  let newCode = compiledCode.replaceAll("console.log(", "addOutput(");
   eval(newCode);
   return outputs;
 };

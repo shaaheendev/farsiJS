@@ -1,5 +1,5 @@
 const isAlfaNumeric = (char) => {
-  let chars = "اآبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی1234567890";
+  let chars = "۱۲۳۴۵۶۷۸۹۰اآبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی1234567890";
   if (chars.split("").includes(char)) {
     return true;
   } else {

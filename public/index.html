@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ParsScript</title>
+    <title>farsiJS</title>
     <style>
       * {
         box-sizing: border-box;
       }
       h1 {
         text-align: center;
+        direction: rtl;
       }
       .main {
         width: 100%;
@@ -28,13 +29,13 @@
         height: 70vh;
         display: flex;
         flex-direction: row-reverse;
-        border: 1px solid red;
       }
       #mobile-run {
         display: none;
       }
       #input {
         width: 50%;
+        border: 1px solid slategrey;
       }
       #code {
         width: 100%;
@@ -45,6 +46,7 @@
         width: 50%;
         background-color: blanchedalmond;
         direction: rtl;
+        border: 1px solid slategrey;
       }
       #output {
         height: 95%;
@@ -88,7 +90,7 @@
     </style>
   </head>
   <body>
-    <h1>ParsScript</h1>
+    <h1>فارسیJS</h1>
     <section class="main">
       <form action="/compile" method="post">
         <div id="input-output">
