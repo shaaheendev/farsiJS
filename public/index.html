@@ -36,6 +36,7 @@
       #input {
         width: 50%;
         border: 1px solid slategrey;
+        overflow: hidden;
       }
       #code {
         width: 100%;
@@ -111,6 +112,18 @@
           const codeInput = document.getElementById("code");
           const output = document.getElementById("output");
 
+          function showLogs(...args) {
+            let newLine = "";
+            args.forEach((arg, i) => {
+              newLine += arg;
+              if (i != args.length - 1) {
+                newLine += " ";
+              }
+            });
+            newLine += "\n";
+            output.innerText += newLine;
+          }
+
           async function logOutput(e) {
             output.innerText = "";
             try {
@@ -122,19 +135,8 @@
                 method: "post",
                 body: JSON.stringify({ code: codeInput.value }),
               });
-              let outputs = await data.json();
-              outputs.forEach((el) => {
-                let newLine = "";
-                el.forEach((e, i) => {
-                  newLine += e;
-                  // output.innerText += e;
-                  if (i != el.length - 1) {
-                    newLine += " ";
-                  }
-                });
-                output.innerText += newLine;
-                output.innerText += "\n";
-              });
+              let codes = await data.json();
+              eval(codes.code.replaceAll("console.log(", "showLogs("));
             } catch (error) {
               output.innerText = error;
             }

@@ -4,10 +4,6 @@ import { builtins, isBuiltin } from "./builtins.mjs";
 import isAlfaNumeric from "./isAlfaNumeric.mjs";
 
 const compiler = (code) => {
-  let outputs = [];
-  function addOutput(...args) {
-    outputs.push(args);
-  }
   let isInString = "";
   let compiledCode = "";
   let lines = code.split("\n");
@@ -84,8 +80,6 @@ const compiler = (code) => {
     newLine += "\n";
     compiledCode += newLine;
   });
-  let newCode = compiledCode.replaceAll("console.log(", "addOutput(");
-  eval(newCode);
-  return outputs;
+  return compiledCode;
 };
 export default compiler;

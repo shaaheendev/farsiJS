@@ -10,8 +10,8 @@ app.use(express.json());
 app.post("/compile", (req, res) => {
   try {
     const code = req.body.code;
-    let outputs = compiler(code);
-    res.json(outputs);
+    let compiledCode = compiler(code);
+    res.json({ code: compiledCode });
   } catch (error) {
     console.log(err);
   }

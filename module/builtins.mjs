@@ -3,6 +3,8 @@ export const builtins = {
   چاپ: "log",
   زمانگذار: "setTimeout",
   دورانگذار: "setInterval",
+  دورانروب: "clearInterval",
+  زمانروب: "clearTimeout",
 };
 export const isBuiltin = (word) => {
   let bltins = Object.keys(builtins);
